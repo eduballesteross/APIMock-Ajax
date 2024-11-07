@@ -1,29 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/loginstyle.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <title>Bienvenido a mi Formulario</title>
+    <title>Eliminar Club</title>
+    <link rel="stylesheet" href="css/deletestyle.css">
 </head>
-
 <body>
-    <div class="container-form sign-up">
-        <form class="formulario">
-            <p class="cuenta-gratis">Eliminar un club</p>
-            <input type="email" placeholder="Mail de club" id="mail_club">
-            <input type="button" value="Registrarse" onclick="deleteClub()">
+
+    <div class="form-container">
+        <h2>Eliminar Club</h2>
+        <form id="deleteForm">
+            <label for="mail_club">Correo del Club</label>
+            <input type="email" id="mail_club" name="mail_club" placeholder="Correo del club" required>
+
+            <label for="contraseña_club">Contraseña</label>
+            <input type="password" id="contraseña_club" name="contraseña_club" placeholder="Contraseña del club" required>
+
+            <button type="button" id="deleteBtn">Eliminar Club</button>
+
+            <!-- Mensaje de confirmación que estará oculto inicialmente -->
+            <div id="confirmation" class="confirmation-message" style="display: none;">
+                <p>Para confirmar la eliminación, escribe el nombre de tu club:</p>
+                <input type="text" id="clubName" placeholder="Nombre del club" required>
+                <button type="button" id="confirmDelete">Confirmar Eliminación</button>
+            </div>
+
+            <!-- Mensajes de error y éxito -->
+            <p id="message" class="error-message"></p>
+            <p id="successMessage" class="success-message"></p>
         </form>
     </div>
-    <script src="ajax.js"></script>
-    <script src="script.js"></script>
-    
-</body>
 
+    <script src="script/function.js"></script>
+    <script src="script/script.js"></script>
+</body>
 </html>

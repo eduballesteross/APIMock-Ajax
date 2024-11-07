@@ -78,26 +78,80 @@ function loginClub() {
  * @author rp
  * @date 31/10/24
  */
-function deleteClub() {
-    const emailClub = document.getElementById('mail_club').value;
 
-    const data = {
-        mail_club: emailClub
-    };
+document.addEventListener("DOMContentLoaded", () => {
+    const deleteBtn = document.getElementById('deleteBtn');
+    const confirmation = document.getElementById('confirmation');
+    const confirmDelete = document.getElementById('confirmDelete');
+    const clubNameInput = document.getElementById('clubName');
+    const mailClubInput = document.getElementById('mail_club');
+    const passwordClubInput = document.getElementById('contraseña_club');
+    const message = document.getElementById('message');
+    const successMessage = document.getElementById('successMessage');
 
-    fetch('http://localhost:3000/api/delete', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error); // Error al eliminar
-        } else {
-            alert(data.message); // Club eliminado exitosamente
-            // Aquí puedes limpiar los campos o actualizar la interfaz
+    // Mostrar confirmación cuando se hace clic en eliminar
+    deleteBtn.addEventListener('click', () => {
+        // Verificar si el correo y la contraseña están completos
+        const email = mailClubInput.value.trim();
+        const password = passwordClubInput.value.trim();
+        
+        if (email === '' || password === '') {
+            message.textContent = 'Por favor, ingresa el correo y la contraseña del club.';
+            message.style.color = '#ff4747'; // Error
+            return;
         }
-    })
-    .catch(error => console.error('Error:', error));
-}
+
+        // Mostrar el cuadro de confirmación
+        confirmation.style.display = 'block';
+        message.textContent = ''; // Limpiar mensaje de error
+    });
+
+    // Confirmar eliminación
+    confirmDelete.addEventListener('click', () => {
+        const clubName = clubNameInput.value.trim();
+        const email = mailClubInput.value.trim();
+        const password = passwordClubInput.value.trim();
+
+        // Verificar si el nombre del club coincide
+        if (clubName === '') {
+            message.textContent = 'Por favor, ingresa el nombre del club para confirmar.';
+            message.style.color = '#ff4747'; // Error en el nombre
+            return;
+        }
+
+        // Llamada a la API para eliminar el club
+        const data = { 
+            mail_club: email,
+            contraseña_club: password 
+        };
+
+        fetch('http://localhost:3000/api/delete', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                message.textContent = data.error;
+                message.style.color = '#ff4747';
+                successMessage.textContent = ''; // Limpiar mensaje de éxito
+            } else {
+                successMessage.textContent = data.message;
+                successMessage.style.color = '#4caf50';
+                message.textContent = ''; // Limpiar mensaje de error
+                clubNameInput.value = ''; // Limpiar el campo del nombre
+                passwordClubInput.value = ''; // Limpiar la contraseña
+                confirmation.style.display = 'none'; // Ocultar el cuadro de confirmación
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            message.textContent = 'Hubo un error al intentar eliminar el club.';
+            message.style.color = '#ff4747';
+        });
+    });
+});
+
+
+
