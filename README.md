@@ -86,8 +86,6 @@ Para ejecutar el proyecto en tu máquina local, sigue los pasos a continuación:
    En la terminal, navega hasta la carpeta del proyecto y ejecuta:
 npm install
 
-markdown
-Copiar código
 
 3. **Ejecutar el servidor JSON Server**  
 Una vez instaladas las dependencias, inicia el servidor de API Mock ejecutando el siguiente comando en la terminal:
