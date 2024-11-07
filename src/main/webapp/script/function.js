@@ -75,8 +75,8 @@ function loginClub() {
 
 /**
  * Esta función intenta borrar los clubes con los datos proporcionados por el usuario, enviándolos a la API y borrandolos de la misma.
- * @author rp
- * @date 31/10/24
+ * @author rp - ebp
+ * @date 31/10/24 - 07/11/24
  */
 
 document.addEventListener("DOMContentLoaded", () => {
